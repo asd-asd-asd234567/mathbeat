@@ -20,7 +20,7 @@ export class Scope {
 		this.drawBuffer = [];
 		this.drawEndBuffer = [];
 		this.drawMode = 'Combined';
-		this.drawScale = 5;
+		this.drawScale = 9;
 		this.fftGridData = null;
 		this.fftSize = 10;
 		this.maxDecibels = -10;
@@ -50,7 +50,7 @@ export class Scope {
 		if(this.drawMode === 'FFT') {
 			this.clearCanvas();
 			const minFreq = Math.max(48000 / 2 ** this.fftSize, 10);
-			const maxFreq = 24000; // audioCtx.sampleRate / 2 = 48000 / 2
+			const maxFreq = 32000; // audioCtx.sampleRate / 2 = 48000 / 2
 			// Grid and labels
 			if(this.fftGridData) {
 				ctx.putImageData(this.fftGridData, 0, 0);
@@ -229,7 +229,7 @@ export class Scope {
 				// Diagram drawing
 				if(isCombined || isDiagram) {
 					const isNaNCurYCh = isNaNCurY[ch];
-					const value = (curYCh & 255) / 256;
+					const value = (curYCh & 255) / 384;
 					const color = [
 						value * colorDiagram[0] | 0,
 						value * colorDiagram[1] | 0,
