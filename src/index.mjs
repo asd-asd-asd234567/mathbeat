@@ -19,7 +19,7 @@ globalThis.bytebeat = new class {
 		this.byteSample = 0;
 		this.defaultSettings = {
 			codeStyle: 'Atom Dark',
-			colorDiagram: '#0080ff',
+			colorDiagram: '#ffee80',
 			colorStereo: 1,
 			colorTimeCursor: '#80bbff',
 			colorWaveform: '#ffffff',
@@ -135,14 +135,14 @@ globalThis.bytebeat = new class {
 			case classList.contains('code-load'):
 				elem.title = `Click to play the ${ elem.dataset.type } code`;
 				break;
-			case classList.contains('code-text'): elem.title = 'Click to play this code'; break;
-			case classList.contains('songs-header'): elem.title = 'Click to show/hide the songs'; break;
+			case classList.contains('code-text'): elem.title = 'Click to play code'; break;
+			case classList.contains('songs-header'): elem.title = 'Click to show or hide the songs'; break;
 			case classList.contains('song-hash'):
 				elem.title = 'Click to copy the song hash into clipboard';
 				break;
-			case classList.contains('tag-c'): elem.title = 'C-compatible code'; break;
+			case classList.contains('tag-c'): elem.title = 'Compatible with C environments (eg. Arduino and ESP32)'; break;
 			case classList.contains('tag-console'):
-				elem.title = 'Outputs messages in the error console';
+				elem.title = 'Outputs messages in the error console (yes.)';
 				break;
 			case classList.contains('tag-drawing'):
 				elem.title = 'Generates art in the visualiser\'s scope';
@@ -303,7 +303,7 @@ globalThis.bytebeat = new class {
 		const multiplierElem = buttonElem.firstElementChild;
 		const speed = speedIncrement ? +multiplierElem.textContent : 1;
 		multiplierElem.classList.toggle('control-fast-multiplier-large', speed >= 8);
-		const nextSpeed = speed === 64 ? 0 : speed * 2;
+		const nextSpeed = speed === 128 ? 0 : speed * 2;
 		ui.setPlayButton(ui.controlPlayBackward, isPlaying && isReverse ? nextSpeed : 1);
 		ui.setPlayButton(ui.controlPlayForward, isPlaying && !isReverse ? nextSpeed : 1);
 		if(speedIncrement || !isPlaying) {
@@ -536,13 +536,20 @@ globalThis.bytebeat = new class {
 		}
 		sampleRate = Math.max(0.1, sampleRate);
 		switch(sampleRate) {
+
+		case 4000:
+		case 5512.5:
+		case 6000:
 		case 8000:
 		case 11025:
+		case 12000:
 		case 16000:
 		case 22050:
+		case 24000:
 		case 32000:
 		case 44100:
-		case 48000: ui.controlSampleRateSelect.value = sampleRate; break;
+		case 48000: 
+		case 64000: ui.controlSampleRateSelect.value = sampleRate; break;
 		default: ui.controlSampleRateSelect.selectedIndex = -1;
 		}
 		const oldSampleRate = this.sampleRate;
@@ -627,7 +634,7 @@ globalThis.bytebeat = new class {
 		case 'Orange Dark':
 			colorCursor = '#ffff80';
 			colorDiagram = '#8000ff';
-			colorStereo = 0;
+			colorStereo = 2;
 			break;
 		case 'Purple Dark':
 			colorCursor = '#ff50ff';
@@ -637,10 +644,11 @@ globalThis.bytebeat = new class {
 		case 'Teal Dark':
 			colorCursor = '#80c0ff';
 			colorDiagram = '#00a0c0';
+			colorStereo = 2;
 			break;
 		default: // Blue Dark, Dusk Dark, Default Dark, Default Light
-			colorCursor = '#80c0ff';
-			colorDiagram = '#0080ff';
+			colorCursor = '#ffee80';
+			colorDiagram = '#ffd550';
 		}
 		this.setColorTimeCursor(colorCursor);
 		this.setColorStereo(colorStereo);
