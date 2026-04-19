@@ -65,7 +65,7 @@ const editorView = initValue => new EditorView({
 export class Editor {
 	constructor() {
 		this.container = null;
-		this.defaultValue = '10*(t>>7|t|t>>6)+4*(t&t>>13|t>>6)';
+		this.defaultValue = '(8*t*(t>>10&3)/[4,6,5,5.2][(t>>14)%4]&127)+(t/[1,1.2,1.5,1.75][3&t>>15]&64)+4E4/(t&4095)';
 		this.errorElem = null;
 		this.view = null;
 	}
